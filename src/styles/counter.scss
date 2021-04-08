@@ -1,0 +1,13 @@
+.counter {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px 56px 72px;
+
+  &__container {
+    font-size: 14px;
+
+    &-number {
+      font-size: 56px;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.form {
+  border-radius: 0 0 32px;
+  background-color: red;
+
+  &__container {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+  }
+}

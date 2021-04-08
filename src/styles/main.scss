@@ -1,7 +1,12 @@
+@import "reset";
 @import "utils";
 @import "fonts";
 @import "typography";
+@import "counter";
+@import "header";
+@import "form";
+@import "button";
 
 body {
-  background: $c-gray;
+  background: white;
 }

@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
     <link rel="stylesheet" href="./styles/main.scss">
   </head>
+
   <body>
-    <h1>Hello Mate Academy</h1>
+    <header class="header">
+      <h1>To do List</h1>
+      <div class="header__decoration"></div>
+      <section class="counter">
+        <div class="counter__container">
+          <p>Scope</p>
+          <span class="counter__container-number">
+            5
+          </span>
+        </div>
+        <div class="counter__container">
+          <p>Active</p>
+          <span class="counter__container-number">
+            5
+          </span>
+        </div>
+        <div class="counter__container">
+          <p>Succesful</p>
+          <span class="counter__container-number">
+            5
+          </span>
+        </div>
+      </section>
+    </header>
+
+    <form id="form" class="form">
+      <label for="Add" class="form__label">
+        <button id="Add" class="form__button button">Create new Task</button>
+      </label>
+    </form>
+    <ul class="TodoList">
+    </ul>
     <script type="text/javascript" src="scripts/main.js"></script>
   </body>
 </html>
