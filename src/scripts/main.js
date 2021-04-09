@@ -1,23 +1,53 @@
-// 'use strict';
+'use strict';
 
-// let Todolist = [];
+const list = document.querySelector('.Todo-board');
+const button = document.querySelector('#Add');
+const todoList = [
+  {
+    date: '21 Jan 2021',
+    text: 'DFvcvcvoodfdlffdf',
+    isCompleted: false,
+  },
+];
 
-// const form = document.body.getElementsById('form');
-// const button = document.body.getElementsById('Add');
-// const list = document.body.getElementsById('list');
+function renderList() {
+  todoList.map(singleTodo => {
+    const ListElement = document.createElement('li');
 
-// form.addEventListener('sumbit', (submitEvent) => {
-//   submitEvent.preventDefault();
+    ListElement.class = 'Todo-board__Todo';
 
-//   const Todo = input.value;
+    ListElement.innerHTML = `
+    <div class="Todo-board__todo">
+      
+      <span  class="Todo-board__heading">
+      <span class="Todo-board__status"></span>
+        <span class="Todo-board__date">${singleTodo.date}</span>
+        <img class="Todo-board__edit" />
+        <img class="Todo-board__delete" />
+      </span>
+      
+      
+      <textarea
+        class="Todo-board__text"
+        placeholder="Please enter task description"
+      >${singleTodo.text}</textarea>
+    </div>`;
+    list.append(ListElement);
+  });
+}
 
-//   if (Todo) {
+renderList();
 
-//   }
-// });
-// Todolist.map(singeTodo => {
-//   const Todo = list.createElement('li');
-//   const textArea = Todo.createElement('textarea');
-// })
+button.addEventListener('click', () => {
+  todoList.push({
+    date: '',
+    text: '',
+    isCompleted: false,
+  });
 
-// document.body.append(Todo);
+  const elements = document.querySelectorAll('.Todo-board__todo');
+
+  elements.forEach(element => element.remove());
+
+  renderList();
+});

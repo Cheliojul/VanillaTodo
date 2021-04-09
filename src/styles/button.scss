@@ -3,13 +3,17 @@
   width: 208px;
 
   align-self: center;
-  text-align: left;
+  text-align: center;
 
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
   line-height: 24px;
+  color: white;
 
+  background: #88eaa9;
+  border-radius: 15px;
   &__decoration {
     height: 7px;
     width: 1px;

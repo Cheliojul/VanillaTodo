@@ -1,0 +1,67 @@
+.Todo-board {
+  padding: 56px;
+
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+  color: #889dea;
+
+  &__todo {
+    border-bottom: 1px solid #889dea;
+    margin-bottom: 15px;
+  }
+
+  &__heading {
+    display: flex;
+    position: relative;
+    justify-content: flex-start;
+  }
+  &__status {
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+
+    border: 1px solid #889dea;
+  }
+  &__date {
+    padding: 4px 8px;
+  }
+  &__edit {
+    position: absolute;
+    right: 33px;
+    height: 18px;
+    width: 18px;
+    background-image: url("../images/edit-icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+  }
+  &__delete {
+    position: absolute;
+    right: 0;
+    height: 18px;
+    width: 18px;
+    background-image: url("../images/delete-icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+  }
+  &__text {
+
+    display: block;
+    width: 100%;
+    height: fit-content;
+    overflow: hidden;
+  
+    font-family: Poppins, sans-serif;
+
+    border: none;
+
+    resize: none;
+
+    &:focus-within {
+      border: none;
+    }
+  }
+}

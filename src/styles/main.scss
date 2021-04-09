@@ -1,11 +1,15 @@
 @import "reset";
 @import "utils";
 @import "fonts";
-@import "typography";
 @import "counter";
 @import "header";
 @import "form";
 @import "button";
+@import "Todo-board";
+
+html {
+  font-family: "Poppins", sans-serif;
+}
 
 body {
   background: white;

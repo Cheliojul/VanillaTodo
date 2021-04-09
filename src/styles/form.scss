@@ -1,8 +1,8 @@
 .form {
-  border-radius: 0 0 32px;
-  background-color: red;
+  border-radius: 32px 0 0;
+  background-color: white;
 
-  &__container {
+  &__label {
     background-color: transparent;
     display: flex;
     justify-content: center;
