@@ -5,9 +5,11 @@
 
   &__container {
     font-size: 14px;
+  }
 
-    &-number {
-      font-size: 56px;
-    }
+  &__scope,
+  &__completed,
+  &__active {
+    font-size: 56px;
   }
 }
