@@ -7,6 +7,7 @@ const { localStorage } = window;
 const list = document.querySelector('.Todo-board');
 const buttonAdd = document.querySelector('#Add');
 let localTodos = JSON.parse(localStorage.getItem('todos'));
+
 const initialTodoList = [
   {
     id: 1,
@@ -19,8 +20,14 @@ const scopeCount = document.querySelector('.counter__scope');
 const activeCount = document.querySelector('.counter__active');
 const completedCount = document.querySelector('.counter__completed');
 
-if (!localTodos) {
+if (localTodos === null) {
   localTodos = initialTodoList;
+
+  const element = document.createElement('div');
+
+  element.class = `No-tasks`;
+  element.innerHTML = `Create new task by clicking the button below`;
+  list.append(element);
 }
 
 function renderList() {
@@ -33,7 +40,7 @@ function renderList() {
     <div key="${singleTodo.id}" class="Todo-board__todo">
       
       <span class="Todo-board__heading">
-      <span id="Complete" class="Todo-board__status"></span>
+      <input type="checkbox" id="Complete" class="Todo-board__status">
         <span class="Todo-board__date">${singleTodo.date}</span>
         <img id="Edit" class="Todo-board__edit" />
         <img id="Delete" class="Todo-board__delete" />
@@ -52,36 +59,39 @@ function renderList() {
   scopeCount.innerHTML = localTodos.length;
   activeCount.innerHTML = localTodos.length;
   completedCount.innerHTML = localTodos.length;
+
+  const buttonDelete = document.querySelectorAll('.Todo-board__delete');
+
+  // const buttonEdit = document.querySelectorAll('#Edit');
+  // const buttonComplete = document.querySelectorAll('#Complete');
+
+  buttonDelete.forEach(button => handleDelete(button));
+
+  localStorage.setItem('todos', JSON.stringify(localTodos));
 }
 
 renderList();
 
-const buttonDelete = document.querySelectorAll('.Todo-board__delete');
-// const buttonEdit = document.querySelectorAll('#Edit');
-// const buttonComplete = document.querySelectorAll('#Complete');
-// const textInput = document.querySelectorAll('#Text');
+const textInput = document.querySelectorAll('#Text');
 
-// textInput.addEventListener('keyup', (e) => {
-//  = e.target.value
-// });
+textInput.forEach(button => button.addEventListener('focusout', (e) => {
+  const todoKey = e.target.closest('div[key]').getAttribute('key');
+  const targetInput = localTodos.find(todo => todo.id === Number(todoKey));
 
-buttonDelete.forEach(button => button.addEventListener('click', (e) => {
-  const currentTodoTask = e.target.offsetParent.nextElementSibling.textContent;
+  targetInput.text = e.target.value;
 
-  const filteredTodos = localTodos.filter(todo =>
-    todo.text !== currentTodoTask);
+  const elements = document.querySelectorAll('.Todo-board__todo');
 
-  localTodos = filteredTodos;
-  localStorage.setItem('todos', JSON.stringify(localTodos));
+  elements.forEach(element => element.remove());
 
   renderList();
 }));
 
-// buttonEdit.addEventListener('click', (e) => {
-//   let parent = e.target.offsetParent.nextElementSibling.;
-
-//   console.log(parent);
-// });
+// buttonEdit.forEach(button => button.addEventListener('click', (e) => {
+//   let todoKey = e.target.closest('div[key]').getAttribute('key');
+//   let targetInput = localTodos.find(todo => todo.id === +todoKey);
+//   targetInput.text = e.target.value
+// }));
 
 function getTodayDate() {
   const monthList = ['Jan', 'Feb', 'Mar', 'Apr',
@@ -110,8 +120,7 @@ buttonAdd.addEventListener('click', () => {
       isCompleted: false,
     });
   }
-
-  localStorage.setItem('todos', JSON.stringify(localTodos));
+  // localStorage.setItem('todos', JSON.stringify(localTodos));
 
   const elements = document.querySelectorAll('.Todo-board__todo');
 
@@ -119,3 +128,20 @@ buttonAdd.addEventListener('click', () => {
 
   renderList();
 });
+
+function handleDelete(button) {
+  button.addEventListener('click', (e) => {
+    const currentTodoKey = e.target.closest('div[key]').getAttribute('key');
+
+    localTodos = localTodos.filter(todo =>
+      todo.id !== +currentTodoKey);
+
+    // localTodos = filteredTodos;
+
+    const elements = document.querySelectorAll('.Todo-board__todo');
+
+    elements.forEach(element => element.remove());
+    renderList();
+    localStorage.setItem('todos', JSON.stringify(localTodos));
+  });
+};
