@@ -1,11 +1,8 @@
 'use strict';
 
 const { localStorage } = window;
-
-// localStorage.clear();
-
 const list = document.querySelector('.Todo-board');
-const buttonAdd = document.querySelector('#Add');
+const addButtons = document.querySelectorAll('.button');
 let localTodos = JSON.parse(localStorage.getItem('todos'));
 
 const initialTodoList = [
@@ -22,15 +19,18 @@ const completedCount = document.querySelector('.counter__completed');
 
 if (localTodos === null) {
   localTodos = initialTodoList;
-
-  const element = document.createElement('div');
-
-  element.class = `No-tasks`;
-  element.innerHTML = `Create new task by clicking the button below`;
-  list.append(element);
 }
 
 function renderList() {
+  if (localTodos.length < 1) {
+    const element = document.createElement('div');
+
+    element.className = `Todo-board__empty`;
+    element.innerHTML = `Create new task by clicking the button below`;
+    list.append(element);
+  }
+  document.querySelector('.Todo-board').firstChild.remove();
+
   localTodos.map(singleTodo => {
     const ListElement = document.createElement('li');
 
@@ -40,52 +40,57 @@ function renderList() {
     <div key="${singleTodo.id}" class="Todo-board__todo">
       
       <span class="Todo-board__heading">
-      <input type="checkbox" id="Complete" class="Todo-board__status">
+        <input
+          type="checkbox"
+          id="status-${singleTodo.id}"
+          name="status"
+          cheked="${singleTodo.isCompleted}"
+          class="Todo-board__status custom-checkbox"
+        >
+        <label for="status-${singleTodo.id}"></label>
         <span class="Todo-board__date">${singleTodo.date}</span>
-        <img id="Edit" class="Todo-board__edit" />
-        <img id="Delete" class="Todo-board__delete" />
+        <div class="Todo-board__edit"> </div>
+        <div class="Todo-board__delete"> </div>
       </span>
       
       
       <textarea
         id="Text"
         class="Todo-board__text"
-        placeholder=""
+        placeholder="Please enter task description"
+        required
+        min="1"
+        max="256"
+        maxlength="256"
       >${singleTodo.text}</textarea>
     </div>`;
     list.append(ListElement);
   });
 
+  completedCount.innerHTML = localTodos
+    .reduce((acc, todo) => {
+      if (todo.isCompleted) {
+        return acc + 1;
+      }
+
+      return acc;
+    }, 0);
   scopeCount.innerHTML = localTodos.length;
-  activeCount.innerHTML = localTodos.length;
-  completedCount.innerHTML = localTodos.length;
+  activeCount.innerHTML = localTodos.length - completedCount.innerHTML;
 
-  const buttonDelete = document.querySelectorAll('.Todo-board__delete');
-
+  const deleteButtons = document.querySelectorAll('.Todo-board__delete');
+  const statusCheckboxes = document.querySelectorAll('.Todo-board__status');
+  const textInputs = document.querySelectorAll('.Todo-board__text');
   // const buttonEdit = document.querySelectorAll('#Edit');
-  // const buttonComplete = document.querySelectorAll('#Complete');
 
-  buttonDelete.forEach(button => handleDelete(button));
+  deleteButtons.forEach(button => handleDelete(button));
+  statusCheckboxes.forEach(checkbox => handleStatus(checkbox));
+  textInputs.forEach(input => handleTextInputs(input));
 
   localStorage.setItem('todos', JSON.stringify(localTodos));
 }
 
 renderList();
-
-const textInput = document.querySelectorAll('#Text');
-
-textInput.forEach(button => button.addEventListener('focusout', (e) => {
-  const todoKey = e.target.closest('div[key]').getAttribute('key');
-  const targetInput = localTodos.find(todo => todo.id === Number(todoKey));
-
-  targetInput.text = e.target.value;
-
-  const elements = document.querySelectorAll('.Todo-board__todo');
-
-  elements.forEach(element => element.remove());
-
-  renderList();
-}));
 
 // buttonEdit.forEach(button => button.addEventListener('click', (e) => {
 //   let todoKey = e.target.closest('div[key]').getAttribute('key');
@@ -104,29 +109,26 @@ function getTodayDate() {
   return dd + ' ' + monthList[mm] + ' ' + yyyy;
 }
 
-buttonAdd.addEventListener('click', () => {
-  if (!localTodos.length) {
-    localTodos.push({
+addButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const elements = document.querySelectorAll('.Todo-board__todo');
+    const todoTemplate = {
       id: 0,
       date: getTodayDate(),
-      text: 'Please enter task description',
+      text: '',
       isCompleted: false,
-    });
-  } else {
-    localTodos.push({
-      id: localTodos[localTodos.length - 1].id + 1,
-      date: getTodayDate(),
-      text: 'Please enter task description',
-      isCompleted: false,
-    });
-  }
-  // localStorage.setItem('todos', JSON.stringify(localTodos));
+    };
 
-  const elements = document.querySelectorAll('.Todo-board__todo');
+    if (!localTodos.length) {
+      localTodos.push(todoTemplate);
+    } else {
+      todoTemplate.id = localTodos[localTodos.length - 1].id + 1;
+      localTodos.push(todoTemplate);
+    }
 
-  elements.forEach(element => element.remove());
-
-  renderList();
+    elements.forEach(element => element.remove());
+    renderList();
+  });
 });
 
 function handleDelete(button) {
@@ -136,12 +138,40 @@ function handleDelete(button) {
     localTodos = localTodos.filter(todo =>
       todo.id !== +currentTodoKey);
 
-    // localTodos = filteredTodos;
-
     const elements = document.querySelectorAll('.Todo-board__todo');
 
     elements.forEach(element => element.remove());
     renderList();
-    localStorage.setItem('todos', JSON.stringify(localTodos));
   });
 };
+
+function handleStatus(box) {
+  box.addEventListener('click', (e) => {
+    const currentTodoKey = e.target.closest('div[key]').getAttribute('key');
+    const currentTodo = localTodos.find(todo => todo.id === +currentTodoKey);
+    const elements = document.querySelectorAll('.Todo-board__todo');
+    const currentTextArea = e.target.offsetParent.nextElementSibling;
+
+    currentTodo.isCompleted = !currentTodo.isCompleted;
+
+    if (currentTodo.isCompleted) {
+      currentTextArea.setAttribute('readonly', 'readonly');
+    } else {
+      currentTextArea.removeAttribute('readonly');
+    }
+    elements.forEach(element => element.remove());
+    renderList();
+  });
+}
+
+function handleTextInputs(inputElement) {
+  inputElement.addEventListener('focusout', (e) => {
+    const todoKey = e.target.closest('div[key]').getAttribute('key');
+    const targetInput = localTodos.find(todo => todo.id === Number(todoKey));
+    const elements = document.querySelectorAll('.Todo-board__todo');
+
+    targetInput.text = e.target.value;
+    elements.forEach(element => element.remove());
+    renderList();
+  });
+}

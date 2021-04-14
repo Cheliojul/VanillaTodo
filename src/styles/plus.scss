@@ -1,0 +1,39 @@
+.plus {
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    position: relative;
+    top: -24px;
+    display: inline-block;
+    height: 48px;
+    width: 48px;
+    border-radius: 8px;
+    transform: rotate(45deg);
+    align-self: center;
+    background-color: #88eaa9;
+
+    &-Y {
+      position: absolute;
+      bottom: 24px;
+      left: 14px;
+      transform: rotate(45deg);
+      height: 1px;
+      width: 21px;
+      border: 1px solid #fff ;
+      border-radius: 1px;
+    }
+
+    &-X {
+      position: absolute;
+      bottom: 24px;
+      left: 14px;
+      transform: rotate(-45deg);
+      height: 1px;
+      width: 21px;
+      border: 1px solid #fff ;
+      border-radius: 1px;
+    }
+  }
+  
+}

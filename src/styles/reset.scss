@@ -138,6 +138,6 @@ table {
 input:active,
 input:hover,
 input:focus {
-  outline: 0;
-  outline-offset: 0;
+  outline: none;
+  outline-color: #fff;
 }

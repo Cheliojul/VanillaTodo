@@ -8,14 +8,10 @@
   background-color: #889dea;
   border-radius: 0 0 32px;
 
-  // &__decoration {
-  //   bottom: 0;
-  //   right: 0;
-  //   position: absolute;
-  //   height: 64px;
-  //   width: 64px;
-  //   background: #c4c4c4;
-  //   border-radius: 41px;
-  //   transform: rotate(-180deg);
-  // }
+}
+
+@media screen and (max-width: 400px) {
+  .header {
+    font-size: 12px;
+  }
 }

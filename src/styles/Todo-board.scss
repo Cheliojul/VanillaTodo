@@ -17,49 +17,67 @@
     position: relative;
     justify-content: flex-start;
   }
+
   &__status {
     display: inline-block;
     height: 18px;
     width: 18px;
 
+    color: red;
     border: 1px solid #889dea;
   }
+
   &__date {
     padding: 4px 8px;
   }
+
   &__edit {
     position: absolute;
+
     right: 33px;
     height: 18px;
     width: 18px;
+
     background-image: url("../images/edit-icon.svg");
     background-repeat: no-repeat;
     background-position: center;
-    border: none;
   }
+
   &__delete {
     position: absolute;
+
     right: 0;
     height: 18px;
     width: 18px;
+
     background-image: url("../images/delete-icon.svg");
     background-repeat: no-repeat;
     background-position: center;
-    border: none;
   }
-  &__text {
 
+  &__empty {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  &__text {
     display: block;
     width: 100%;
     height: fit-content;
     overflow: hidden;
-  
+    border-radius: 5px;
+
     font-family: Poppins, sans-serif;
 
     border: none;
 
     resize: none;
-
+    &:focus {
+      outline-color: #889dea;
+    }
+    &:invalid {
+      outline-color: red;
+    }
     &:focus-within {
       border: none;
     }
