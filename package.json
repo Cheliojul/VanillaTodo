@@ -16,6 +16,7 @@
   },
   "keywords": [],
   "author": "Mate Academy",
+  "homepage": "https://Cheliojul.github.io/VanillaTodo/",
   "license": "GPL-3.0",
   "devDependencies": {
     "@linthtml/linthtml": "^0.3.2",
@@ -27,7 +28,7 @@
     "colors": "^1.3.3",
     "eslint": "^5.16.0",
     "eslint-plugin-node": "^9.0.1",
-    "gh-pages": "2.0.0",
+    "gh-pages": "^2.2.0",
     "gulp-htmllint": "0.0.16",
     "node-sass": "^4.14.1",
     "parcel": "^1.12.4",

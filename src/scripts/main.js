@@ -1,3 +1,5 @@
+'use strict';
+
 const { localStorage } = window;
 const list = document.querySelector('.Todo-board');
 const addButtons = document.querySelectorAll('.plus__container, .button');
@@ -129,7 +131,11 @@ function createTodo(todo) {
 };
 
 function renderList() {
-  if (localTodos.length < 1) {
+  if (localTodos === null) {
+    localTodos = [];
+  }
+
+  if ((localTodos.length < 1)) {
     const element = document.createElement('div');
 
     element.className = `Todo-board__empty`;
