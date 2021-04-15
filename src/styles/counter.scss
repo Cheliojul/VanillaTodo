@@ -5,29 +5,35 @@
 
   &__container {
     font-size: 14px;
-    width: 70px;
+    font-weight: 400;
+    width: 12vw;
+  }
+
+  &__title {
+    text-align: center;
   }
 
   &__scope,
   &__completed,
   &__active {
     font-size: 56px;
+    font-weight: 600;
   }
 }
 
 @media screen and (max-width: 400px) {
   .counter {
-    padding: 0;
+    padding: 20px;
 
     &__container {
-      font-size: 10px;
-      width: 40px;
+      font-size: 16px;
+      width: 80px;
     }
 
     &__scope,
     &__completed,
     &__active {
-      font-size: 24px;
+      font-size: 32px;
     }
   }
 }
@@ -44,7 +50,7 @@
 
     &__container {
       font-size: 24px;
-      width: 140px;
+
     }
   }
 }
