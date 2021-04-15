@@ -1,6 +1,7 @@
 # Getting Started with Todo List
 
 Created Todo List with only Vanilla JS / SCSS
+[DEMO LINK](https://cheliojul.github.io/TodoList-Vanilla/)
 
 ## Available Scripts
 
