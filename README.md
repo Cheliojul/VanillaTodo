@@ -1,7 +1,7 @@
 # Getting Started with Todo List
 
 Created Todo List with only Vanilla JS / SCSS
-[DEMO LINK](https://cheliojul.github.io/TodoList-Vanilla/)
+[DEMO LINK](https://cheliojul.github.io/VanillaTodo/)
 
 ## Available Scripts
 
@@ -9,7 +9,7 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
